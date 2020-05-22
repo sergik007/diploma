@@ -1,0 +1,12 @@
+tbody>tr:hover {
+     /* Цвет фона при наведении */
+    background: #f3bd48;
+   /* Цвет текста при наведении */
+    color: #fff;
+}
+#form-add-update {
+    display: none;
+}
+.form-add{
+    display:none;
+}

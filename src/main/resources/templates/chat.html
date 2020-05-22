@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Chat</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+    <!-- indelude personal css -->
+    <link href="../static/css/chat.css"
+          rel="stylesheet"
+          th:href="@{/css/chat.css}"/>
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+
+    <!-- include websocket -->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    
+    <!-- include js -->
+    <script th:src="@{/js/chat.js}" src="../static/js/chat.js"></script>
+    
+    <style>
+        body {
+            background-image: url(http://all4desktop.com/data_images/original/4236532-background-images.jpg);
+        }
+    </style>
+
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="signup-btn btn btn-default header-menu-btn"
+                   href="registration.html"
+                   role="button"
+                   th:href="@{/registration}">
+                    <span class="header-menu-btn-text">Мой кабинет</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Выход</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="menu center">
+                    <label  class="form-group">Соединение</label>
+                    <button id="connect" class="btn btn-success" type="submit">Подключиться</button>
+                    <button id="disconnect" class="btn btn-danger" type="submit" disabled="disabled">Отключиться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Логин</th>
+                    <th></th>
+                    <th>Время</th>
+                </tr>
+                </thead>
+                <tbody id="messages">
+                    <tr>
+                        <td>grishka</td>
+                        <td>Добрый день! Расскажите пожадуйста о квартире, рассполагаемой по адресу пр-т Машерова 23а. В описании не указано, какого она года.</td>
+                        <td>13:15</td>
+                    </tr>
+                    <tr>
+                        <td>Nicki</td>
+                        <td>Здравствуйте! Квартира построена в 2001 году.</td>
+                        <td>13:17</td>
+                    </tr>
+                    <tr>
+                        <td>grishka</td>
+                        <td>Спасибо. Мне она приглянудась по фотографиям. Давайте назначим встречу для того, чтобы я её мог осмотреть лично. Возможно я её куплю.</td>
+                        <td>13:21</td>
+                    </tr>
+                    <tr>
+                        <td>Nicki</td>
+                        <td>Давайте я Вам позвоню и мы договоримся о встрече. Когда Вам удобно?</td>
+                        <td>13:22</td>
+                    </tr>
+                    <tr>
+                        <td>grishka</td>
+                        <td>Завтра в 12:00.</td>
+                        <td>13:22</td>
+                    </tr>
+                    <tr>
+                        <td>Nicki</td>
+                        <td>Хорошо.</td>
+                        <td>13:22</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <div id="chat-block">
+        <div >
+          <div style=" width: 50%; margin: 0 auto;" class="form-inline form-group menu center">
+            <input id="content" class="form-control" type="text" placeholder="Ваше сообщение..."/>
+            <br/><br/>
+            <button id="send" class="btn btn-success" type="submit">Отправить</button>
+            <label for="files" class="btn">Отправить документ..</label>
+            <input id="files" style="visibility:hidden;" type="file">
+        </div>  
+        </div>
+            
+    </div>
+</body>
+</html>

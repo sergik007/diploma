@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Flats</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+    <link href="../static/css/flats.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/flats.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet"
+          href="css/pagination.css"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="utf-8"/>
+    <title>Flats</title>
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="signup-btn btn btn-default header-menu-btn"
+                   href="registration.html"
+                   role="button"
+                   th:href="@{/registration}">
+                    <span class="header-menu-btn-text">Sign in</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Log in</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container container-menu">
+    <div class="menu">
+        <div class="admin-buttons" sec:authorize="hasRole('ADMIN')">
+            <button class="btn btn-default" onclick="redirectUsers()">Пользователи</button>
+            <button class="btn btn-default" onclick="showAddBlock()">Добавить квартиру</button>
+        </div>
+        <div class="user-buttons" sec:authorize="hasRole('USER')">
+            <button class="btn btn-default" onclick="showAddBlock()">Закладки для пользователя</button>
+        </div>
+        <div class="common-buttons">
+            <button class="btn btn-default" onclick="redirectChat()">Chat</button>
+            <button class="btn btn-default" onclick="getFlats()">Показать все квартиры</button>
+        </div>
+    </div>
+</div>
+<div class="container flats-container">
+    <div id="form-add" class="row">
+    </div>
+    <div id="form-show" class="row flat_block">
+        <div th:each="flat:${flats}">
+            <div class="col-xs-12 col-md-12 col-lg-12 flat_block">
+                <p class="text-primary">
+                    <span>Цена за месяц:
+                        <span id="span_price"><span th:text="${flat.monthPrice}">monthPrice</span>$</span>
+                    </span>
+                    <span>Комнат:
+                        <span id="span_flatnumber"><span th:text="${flat.amountRoom}">amountRoom</span>K</span>
+                    </span>
+                </p>
+                <p class="text-muted">
+                <div th:if="${flat.addresses!=null}">
+                    <div th:each="address:${flat.addresses}">
+                        <b>
+                            <span>Минск, </span>
+                            <span th:text="${address.street}">Янищиц</span><span>ул., </span>
+                            <span th:text="${address.houseNumber}">20</span><span>, </span>
+                            <span th:text="${address.flatNumber}">62</span>
+                        </b>
+                    </div>
+                </div>
+                </p>
+                <p>
+                <div th:each="image:*{flat.images}" style="display: inline;">
+                    <img class="img-rounded" id="flat_Image" th:src="${image.url}"
+                         src="http://cdn.the-village.ru/the-village.ru/post-image_featured/hZofHc-zpPE6t2GJ7fhURw-double.jpg" alt="flatImage"/>
+                </div>
+                </p>
+                <p>Дата добавления: <span th:text="${flat.uploadDate}">uploadDate</span></p>
+                <p>
+                    <span>Средняя оценка
+                        <span id="average_mark">
+                            <span th:text="${flat.averageMark}">8,0</span>
+                        </span>
+                    </span>
+                </p>
+                <p>Статус : <span class="text-success"><span th:text="${flat.flatStatus.type}">status</span></span></p>
+                <div class="mrg_up"><button class="btn btn-default" th:onclick="'getFlat('+${flat.id}+')'">Показать квартиру</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script th:src="@{/js/flats.js}" src="../static/js/flats.js"></script>
+<script th:src="@{/js/common.js}" src="../static/js/common.js"></script>
+</body>
+</html>

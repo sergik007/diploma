@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Order</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+    <link href="../static/css/order.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/order.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet"
+          href="../static/css/searchform.css"
+          th:href="@{/css/searchform.css}"/>
+    <style>
+        body {
+            background-image: url(http://all4desktop.com/data_images/original/4236532-background-images.jpg);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Выйти</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="rounded_box type1 search_block3">
+        <div class="center">
+            <form th:action="@{/flats/filter}"
+                  method="GET"
+                  class="form-inline">
+                <div class="form-group col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                    <div class="label_box">Укажите район Минска</div>
+                    <select class="form-control"
+                            id="idArea"
+                            name="idArea">
+                        <option value="0" selected="">----------</option>
+                        <option value="1">Заводской район</option>
+                        <option value="2">Ленинский район</option>
+                        <option value="3">Московский район</option>
+                        <option value="4">Октябрьский район</option>
+                        <option value="5">Партизанский район</option>
+                        <option value="6">Первомайский район</option>
+                        <option value="7">Советский район</option>
+                        <option value="8">Фрунзенский район</option>
+                        <option value="9">Центральный район</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                    <div class="label_box">Цена: USD</div>
+                    <label for="pricefrom">
+                      <span>от</span>
+                        <input id="pricefrom" type="text"
+                               name="priceFrom"
+                               value="0"
+                               class="form-control"
+                               size="10"/>
+                    </label>
+                    <label for="priceto">
+                      <span>до</span>
+                        <input id="priceto"
+                               type="text"
+                               name="priceTo"
+                               value="0"
+                               class="form-control"
+                               size="10"/>
+                    </label>
+                </div>
+
+                <div class="form-group col-xl-3">
+                    <div class="label_box">Комнаты:</div>
+                    <label class="checkbox-inline myclass">
+                        <input class="form-check-input"
+                               name="amountRoom"
+                               type="checkbox" value="1"/>1
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="form-check-input"
+                               name="amountRoom"
+                               type="checkbox" value="2"/>2
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="form-check-input"
+                               name="amountRoom"
+                               type="checkbox"
+                               value="3"/>3
+                    </label>
+                    <label class="checkbox-inline">
+                        <input class="form-check-input"
+                               name="amountRoom"
+                               type="checkbox"
+                               value="4"/>4 и более
+                    </label>
+                </div>
+
+                <div class="form-group col-xl-2 col-lg-2 col-md-2 col-sm-2">
+                    <div class="label_box">Добавлено</div>
+                    <select class="form-control" id="date" name="date">
+                        <option value="0">----------</option>
+                        <option value="1">за сегодня</option>
+                        <option value="3">за 3 дня</option>
+                        <option value="7">за неделю</option>
+                        <option value="31">за месяц</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-xl-2 col-lg-3 col-md-3 col-sm-3">
+                    <div class="label_box"></div>
+                    <select class="form-control" id="date" name="date">
+                        <option value="sale">Покупка</option>
+                        <option value="rent">Аренда</option>
+                    </select>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3" s-btn-box">
+                    <input id="btn-searchflats" class="btn btn-lg btn-primary"
+                           type="submit"
+                           value="Поиск"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container" style="width: 800px; margin: 20px auto;">
+    <div class="row">
+        <div class="col-12">
+            <div class="border border-primary">
+                <div class="form-check order_block">
+                    <div class="h4" align="center">Оцените стоимость вашей квартиры online</div>
+                    <div class="form-group">
+                        <input type="text" required="true" placeholder="Площадь m2" value="" name="first-name"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                      <select class="form-control"
+                            id="idArea">
+                        <option value="0" selected="">Район</option>
+                        <option value="1">Заводской район</option>
+                        <option value="2">Ленинский район</option>
+                        <option value="3">Московский район</option>
+                        <option value="4">Октябрьский район</option>
+                        <option value="5">Партизанский район</option>
+                        <option value="6">Первомайский район</option>
+                        <option value="7">Советский район</option>
+                        <option value="8">Фрунзенский район</option>
+                        <option value="9">Центральный район</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <select class="form-control"
+                            id="idAmountRoom">
+                        <option value="0" selected="">Количество комнат</option>
+                        <option value="1">1-комнатная</option>
+                        <option value="2">2-комнатная</option>
+                        <option value="3">3-комнатная</option>
+                        <option value="4">4-комнатная</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <select class="form-control"
+                            id="idBuildYear">
+                        <option value="0" selected="">Год постройки</option>
+                        <option value="1">1977-1999</option>
+                        <option value="2">2000-2008</option>
+                        <option value="3">после 2008</option>
+                      </select>
+                    </div>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        C хорошим ремонтом либо мебелью
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        Крайний этаж
+                      </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="display: block; margin: 20px auto;">Подтвердить</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Registration</title>
+    <meta charset="utf-8"/>
+
+    <!-- include bootstrap-->
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"
+          pageEncoding="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+
+    <!-- include project css scripts -->
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+    <link href="../static/css/registration.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/registration.css}"/>
+
+    <!--include bootstrap -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+    <style>
+        body {
+            background-image: url(http://all4desktop.com/data_images/original/4236532-background-images.jpg);
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="signup-btn btn btn-default header-menu-btn"
+                   href="registration.html"
+                   role="button"
+                   th:href="@{/registration}">
+                    <span class="header-menu-btn-text">Регистрация</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Авторизация</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <form th:action="@{/registration}"
+          method="POST"
+          class="form-signup"
+          th:object="${user}">
+        <h2 class="form-signup-heading">Пожалуйста зарегестрируйтесь</h2>
+
+        <label for="username"
+               class="sr-only">Username</label>
+        <input id="username"
+               name="username"
+               class="form-control"
+               placeholder="Логин"
+               required="true"
+               autofocus="true"
+               th:field="*{username}"/>
+        <!--<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>-->
+        <label for="password"
+               class="sr-only">Password</label>
+        <input type="password"
+               id="password"
+               name="password"
+               class="form-control"
+               placeholder="Пароль"
+               required="true"
+               th:field="*{password}"/>
+
+        <label for="confirmPassword"
+               class="sr-only">Confirm password</label>
+        <input type="password"
+               id="confirmPassword"
+               name="confirmPassword"
+               class="form-control"
+               required="true"
+               placeholder="Подтвердите пароль"
+               th:field="*{confirmPassword}"/>
+
+        <label for="name"
+               class="sr-only">Name</label>
+        <input type="text"
+               id="name"
+               name="name"
+               class="form-control"
+               placeholder="Имя"
+               required="true"
+               th:field="*{name}"/>
+        <label for="surname"
+               class="sr-only">Surname</label>
+        <input type="text"
+               id="surname"
+               name="surname"
+               class="form-control"
+               placeholder="Фамилия"
+               required="true"
+               th:field="*{surname}"/>
+        <label for="email"
+               class="sr-only">Email</label>
+        <input type="text"
+               id="email"
+               name="email"
+               class="form-control"
+               placeholder="Email"
+               required="true"
+               th:field="*{surname}"/>
+        <label for="phoneNumber"
+               class="sr-only">Phone number</label>
+        <input type="text"
+               id="phoneNumber"
+               name="phoneNumber"
+               class="form-control"
+               placeholder="Телефонный номер"
+               required="false"
+               th:field="*{surname}"/>
+        <input class="btn btn-lg btn-primary btn-block"
+               type="submit"
+               value="Регистрация"/>
+        <div th:if="${error!=null}">
+            <h4 th:text="${error}"></h4>
+        </div>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script th:src="@{/js/bootstrap/bootstrap.min.js}"
+        src="../static/js/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

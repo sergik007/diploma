@@ -1,0 +1,190 @@
+.flat_block {
+    padding: 30px;
+    background: #F0F0F0;
+    border-bottom: 1px solid #706F93;
+    border-right: 1px solid #706F93;
+    border-left: 1px solid #706F93;
+    border-radius: 5px;
+}
+
+.flat_info {
+    margin: 20px auto;
+
+}
+
+.menu {
+    margin: 30px 0;
+}
+
+#form-add {
+    display: none;
+}
+
+#form-update {
+    display: none;
+}
+
+#form-show {
+    padding: 20px;
+}
+
+#span_price {
+    background: #F3FB98;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#span_flatnumber {
+    background: #D5D7FF;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.image_block_delete {
+    border: 1px solid black;
+    width: 450px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.flat_Images {
+    display: inline;
+    width: 400px;
+    height: 400px;
+    margin: 10px;
+}
+
+#flat_Image {
+    display: inline;
+    width: 300px;
+    height: 300px;
+    margin: 10px 10px 10px 0;
+}
+
+#average_mark {
+    background: #EF7154;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.mrg_up {
+    margin: 10px 0 20px 0;
+}
+
+.text_info {
+    font-size: 32px;
+
+}
+
+#flat_info_all {
+    display: flex;
+    flex-direction: column;
+}
+
+#flat_info_all_main, #flat_info_all_other  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+#flat_info_all_main > div {
+    padding: 20px;
+    border: 1px solid gray;
+    font-size: 24px;
+    width: 30%;
+}
+
+#flat_info_all_other > div {
+    font-size: 22px;
+}
+
+
+
+
+footer {
+    min-width: 862px;
+    background: #1F2334;
+}
+
+#footer_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px 0 10px ;
+    color: #E5E5E5;
+    margin: 250px auto 0 auto;
+}
+
+.footer_info {
+    width: 30%;
+    margin: 0 auto;
+}
+
+#about_us-menu {
+    list-style-type: none;
+}
+
+.our_info {
+    margin: 8px 0;
+    font-size: 18px;
+}
+
+.our_info:first-letter {
+    font-size: 20px;
+    font-family: 'Audiowide', Tahoma;
+}
+
+.footer_info > ul > li > a {
+    color: #E5E5E5;
+}
+
+.footer_headline {
+    margin: 5px;
+    font-size: 20px;
+    font-family: 'Merriweather', serif;
+}
+
+.icons_social {
+    transition: .3s;
+    width: 50px;
+    height: 50px;
+    margin: 10px 5px;
+    display: inline-block;
+    -webkit-background-size: 100% auto;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#gg:hover {
+    background-image: url("../../frisbee/colorGoogle+.png");
+}
+
+#gg {
+    background-image: url("../../frisbee/darkGoogle+.png");
+}
+
+#fb:hover {
+    background-image: url("../../frisbee/colorFacebook.png");
+}
+
+#fb {
+    background-image: url("../../frisbee/darkFacebook.png");
+}
+
+#tw:hover {
+    background-image: url("../../frisbee/colorTwitter.png");
+}
+
+#tw {
+    background-image: url("../../frisbee/darkTwitter.png");
+}
+
+#yt:hover {
+    background-image: url("../../frisbee/colorYouTube.png");
+}
+
+#yt {
+    background-image: url("../../frisbee/darkYouTube.png");
+}

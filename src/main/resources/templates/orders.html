@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Orders</title>
+    <meta charset="UTF-8"/>
+
+    <!-- include bootstrap-->
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+
+    <!-- include project css scripts -->
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+    <link href="../static/css/order.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/order.css}"/>
+    <link rel="stylesheet"
+          href="../static/css/searchform.css"
+          th:href="@{/css/searchform.css}"/>
+
+
+    <!--include bootstrap -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+    <style>
+        body {
+            background-image: url(http://all4desktop.com/data_images/original/4236532-background-images.jpg);
+        }
+    </style>      
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Мой кабинет</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Выход</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br/><br/><br/>
+<div id="main-content" class="container">
+    <div class="rounded_box type1">
+        <h2 class="h2" style="text-align: center; color:rgb(0, 173, 242);">Просмотр заявок</h2>
+        <table class="table table-striped table-bordered">
+            <caption>Заявки</caption>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Адрес</th>
+                <th>Тип заявки</th>
+                <th>Тип недвижимости</th>
+                <th>Количество комнат</th>
+                <th>ФИО владельца</th>
+                <th>Номер телефона</th>
+                <th>Доступное время для звонка</th>
+                <th>Статус</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th><input type="radio" value="1"></th>
+                <td>г. Минск ул.Купаловская 8, 27</td>
+                <td>Покупка</td>
+                <td>Квартира</td>
+                <td>4</td>
+                <td>Лихачёв Дмитрий Иванович</td>
+                <td>+375448544566</td>
+                <td>9.00-18.00</td>
+                <td><button class="btn btn-danger">Отклонить</button></td>
+            </tr>
+            <tr>
+                <th><input type="radio" value="2"></th>
+                <td>г. Минск ул. Красноармейская 54, 45</td>
+                <td>Аренда</td>
+                <td>Квартира</td>
+                <td>2</td>
+                <td>Петров Игорь Дмитриевич</td>
+                <td>+375251530456</td>
+                <td>13.00-21.00</td>
+                <td>Отклонено</td>
+            </tr>
+            <tr>
+                <th><input type="radio" value="1"></th>
+                <td>г. Минск ул.Я. Коласа 28, 706</td>
+                <td>Оценка стоимости</td>
+                <td>Квартира</td>
+                <td>1</td>
+                <td>Мащитько Ян Андреевич</td>
+                <td>+375333454852</td>
+                <td>11.00-23.00</td>
+                <td>На рассмотрении</td>
+            </tr>
+            <tr>
+                <th><input type="radio" value="1"></th>
+                <td>г. Минск пр-т. Независимости 156, 214</td>
+                <td>Оценка стоимости</td>
+                <td>Коттедж</td>
+                <td>8</td>
+                <td>Онищук Григорий Ильич</td>
+                <td>+375444658243</td>
+                <td>09.00-15.00</td>
+                <td><button class="btn btn-success">Подтвердить</button></td>
+            </tr>
+            </tbody>
+        </table>    
+    </div>
+    
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</body>
+</html>

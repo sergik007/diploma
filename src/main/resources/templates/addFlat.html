@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+    <link href="../static/css/order.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/order.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+    <style>
+        body {
+            background-image: url(http://all4desktop.com/data_images/original/4236532-background-images.jpg);
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="signup-btn btn btn-default header-menu-btn"
+                   href="registration.html"
+                   role="button"
+                   th:href="@{/registration}">
+                    <span class="header-menu-btn-text">Мой кабинет</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Выйти</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container" style="width: 800px; margin: 60px auto;">
+    <div class="row">
+        <div class="col-12">
+            <div class="border border-primary">
+                <div class="form-group order_block">
+                    <div class="h4" align="center" style="margin-bottom: 30px;;">Добавление новой квартиры</div>
+                    <div class="form-group">
+                        <!-- <label class ="">Количество комнат:</label> -->
+                        <input type="text" required="true" placeholder="Количество комнат" value="" name="first-name"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="true" placeholder="Адрес" value="" name="name"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="true" placeholder="Стоимость" value="" name="after"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="true" placeholder="Общая площадь" value="" name="address"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="false" placeholder="Площадь жилая" value="" name="address"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="false" placeholder="Площадь кухни" value="" name="address"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="false" placeholder="Этаж" value="" name="floor"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="bathroom"><b>Санузел :</b></label>
+                        <input id= "bathroom" type="checkbox" required="false" value="" name="bathroom"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="false" placeholder="Этаж" value="" name="address"
+                               class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Описание" required="true" class = "form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input id="hide" type="file" class="form-control-file"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="status"><b>Форма договора :</b></label>
+                        <select class="form-control" id="status">
+                            <option>Аренда</option>
+                            <option>Продажа</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status"><b>Район :</b></label>
+                        <select class="form-control" id="status">
+                            <option>Центральный район</option>
+                            <option>Советский район</option>
+                            <option>Первомайский район</option>
+                            <option>Партизанский район</option>
+                            <option>Заводской район</option>
+                            <option>Ленинский район</option>
+                            <option>Октябрьский район</option>
+                            <option>Московский район</option>
+                            <option>Фрунзенский район</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="display: block; margin: 20px auto;">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

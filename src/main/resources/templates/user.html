@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>User</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+
+    <!-- include project css scripts -->
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+    <link href="../static/css/users.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/users.css}"/>
+
+    <!--include bootstrap -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous"/>
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="signup-btn btn btn-default header-menu-btn"
+                   href="registration.html"
+                   role="button"
+                   th:href="@{/registration}">
+                    <span class="header-menu-btn-text">Sign in</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Log in</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container container-menu" style="margin: 30px auto;">
+    <div class="menu">
+        <div class="admin-buttons" sec:authorize="hasRole('ADMIN')">
+            <button class="btn btn-default" onclick="redirectUsers()">Пользователи</button>
+            <button class="btn btn-default" onclick="showAddBlock()">Добавить квартиру</button>
+        </div>
+        <div class="user-buttons" sec:authorize="hasRole('USER')">
+            <button class="btn btn-default" onclick="showAddBlock()">Закладки для пользователя</button>
+        </div>
+        <div class="common-buttons">
+            <button class="btn btn-default" onclick="redirectChat()">Chat</button>
+            <button class="btn btn-default" onclick="getFlats()">Показать все квартиры</button>
+        </div>
+        <div class="mrg_up">
+            <button id="button-update" class="btn btn-default" onclick="showUpdateBlock()">Обновить</button>
+            <button id="button-delete" class="btn btn-default" onclick="deleteFlat()">Удалить</button>
+        </div>
+    </div>
+
+    <div class="mrg_up">
+        <button class="btn btn-default">Блокировать</button>
+        <button class="btn btn-default">Chat</button>
+    </div>
+</div>
+
+
+<div class="container" id="main_info">
+    <div th:object="${user}">
+        <div class="row">
+        <div lang="col-md-6">
+            <h2>Personal data</h2>
+            <p th:text="*{id}">id</p>
+            <p th:text="${user.username}">username</p>
+            <p th:text="${password}">password</p>
+            <p th:text="*{enabled}">enabled</p>
+            <p th:text="*{name}">name</p>
+            <p th:text="*{surname}">surname</p>
+        </div>
+        <div class="col-md-6" style="border-left: 1px solid black; margin-left: 30px;" th:each="flat:*{flats}">
+            <h2>Данные о квартире</h2>
+            <p th:text="${flat.id}">id</p>
+            <p th:text="${flat.amountRoom}">amountRoom</p>
+            <p th:text="${flat.averageMark}">averageMark</p>
+            <p th:text="${flat.monthPrice}">monthPrice</p>
+            <p th:text="${flat.uploadDate}">uploadDate</p>
+            <div th:if="${flat.images}!=null">
+                <div th:each="image:${flat.images}">
+                    <p th:text="${image.url}"></p>
+                </div>
+            </div>
+            <div th:each="address:${flat.addresses}">
+                <p th:text="${address.street}"></p>
+                <p th:text="${address.houseNumber}"></p>
+                <p th:text="${address.flatNumber}"></p>
+            </div>
+            <p th:text="${flat.status.type}">status</p>
+        </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</body>
+</html>

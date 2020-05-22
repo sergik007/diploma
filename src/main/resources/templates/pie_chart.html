@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Pie Chart</title>
+        <!-- include bootstrap-->
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8"
+          pageEncoding="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1"/>
+
+    <link href="../static/css/common.css"
+          rel="stylesheet"
+          type="text/css"
+          th:href="@{/css/common.css}"/>
+
+              
+    <link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+      crossorigin="anonymous"/>
+
+    <link type="text/css" rel="StyleSheet" href="http://bootstraptema.ru/plugins/2016/shieldui/style.css" />
+    <script src="http://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
+    <script src="http://bootstraptema.ru/plugins/2016/shieldui/script.js"></script>
+    <style>
+        body {
+            background-image: url(http://all4desktop.com/data_images/original/4236532-background-images.jpg);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="header-navbar">
+    <div class="container">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" href="index.html"
+                   th:href="@{/index}">
+                    <div class="logo"></div>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav text-uppercase navbar-right">
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Мой кабинет</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="login-btn btn btn-default header-menu-btn navbar-brand"
+                   href="login.html"
+                   role="button"
+                   th:href="@{/login}">
+                    <span class="header-menu-btn-text">Выйти</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <br><br><br>
+    <div class="container">
+        <h1 class="h1" style="text-align: center">Структура квартир в Минске по комнатам</h1><br/><br/>
+        <div class="row">
+            <div class= "col-md-3"></div>
+            <div id="chart" class="col-md-5">
+                <script type="text/javascript">
+                    $(function () {
+                        $("#chart").shieldChart({
+                            theme: "light",
+                            exportOptions: {
+                                image: false,
+                                print: false
+                            },
+                            primaryHeader: {
+                                text: "Структура квартир в Минске по комнатам"
+                            },
+                            chartLegend: {
+                                enabled: true
+                            },
+                            seriesSettings: {
+                                pie: {
+                                    enablePointSelection: true        
+                                }
+                            },
+                            dataSeries: [{
+                                seriesType: "pie",
+                                collectionAlias: "Тип",
+                                data: [
+                                    ["4-комнатные", 9.81],                        
+                                    ["3-комнатные", 29.91],
+                                    ["2-комнатные", 35.27],
+                                    ["1-комнатные", 25.01]
+                                ]
+                            }]
+                        });
+                    });
+                </script>   
+            </div>    
+        </div>
+        
+    </div>
+    
+</body>
+</html>
