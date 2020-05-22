@@ -1,0 +1,467 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+-- -----------------------------------------------------
+-- Schema rentap
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema rent_ap
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `rent_ap` ;
+
+-- -----------------------------------------------------
+-- Schema rent_ap
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `rent_ap` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`authority`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`authority` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`authority` (
+  `id_authority` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `value` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`id_authority`),
+  UNIQUE INDEX `id_authority_UNIQUE` (`id_authority` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`account`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`account` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`account` (
+  `id_account` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `surname` VARCHAR(225) NOT NULL,
+  `name` VARCHAR(225) NOT NULL,
+  `login` VARCHAR(225) NOT NULL,
+  `password` VARCHAR(225) NOT NULL,
+  `email` VARCHAR(225) NOT NULL,
+  `phone number` VARCHAR(225) NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `id_authority` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_account`),
+  UNIQUE INDEX `login_unq_idx` (`login` ASC),
+  UNIQUE INDEX `id_account_unq_idx` (`id_account` ASC),
+  UNIQUE INDEX `email_unq_idx` (`email` ASC),
+  INDEX `fk_id_authority_idx` (`id_authority` ASC),
+  CONSTRAINT `fk_account_authority1`
+    FOREIGN KEY (`id_authority`)
+    REFERENCES `mydb`.`authority` (`id_authority`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+  `id_account` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_account`),
+  CONSTRAINT `fk_user_account1`
+    FOREIGN KEY (`id_account`)
+    REFERENCES `mydb`.`account` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`realtor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`realtor` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`realtor` (
+  `slogan` VARCHAR(225) NULL,
+  `skype` VARCHAR(225) NULL,
+  `id_account` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_account`),
+  CONSTRAINT `fk_rieltor_account1`
+    FOREIGN KEY (`id_account`)
+    REFERENCES `mydb`.`account` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`order_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`order_type` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`order_type` (
+  `id_order_type` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `value` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`id_order_type`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`order_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`order_status` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`order_status` (
+  `id_order_status` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `value` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`id_order_status`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`area`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`area` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`area` (
+  `id_area` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `value` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`id_area`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`flat_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`flat_type` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`flat_type` (
+  `id_flat_type` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `value` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`id_flat_type`),
+  UNIQUE INDEX `id_flat_type_UNIQUE` (`id_flat_type` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`flat`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`flat` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`flat` (
+  `id_flat` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `amount_room` INT(11) NOT NULL,
+  `address` VARCHAR(225) NOT NULL,
+  `cost` INT(11) NOT NULL,
+  `total_square` INT(11) NOT NULL,
+  `living_square` INT(11) NOT NULL,
+  `kitchen_square` INT(11) NOT NULL,
+  `bathroom` VARCHAR(225) NOT NULL,
+  `date` DATE NOT NULL,
+  `statys` TINYINT(1) NOT NULL,
+  `id_area` BIGINT(20) UNSIGNED NOT NULL,
+  `id_flat_type` BIGINT(20) UNSIGNED NOT NULL,
+  `id_account` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_flat`),
+  INDEX `fk_flat_area1_idx` (`id_area` ASC),
+  INDEX `fk_flat_flat_type1_idx` (`id_flat_type` ASC),
+  INDEX `fk_flat_rieltor1_idx` (`id_account` ASC),
+  CONSTRAINT `fk_flat_area1`
+    FOREIGN KEY (`id_area`)
+    REFERENCES `mydb`.`area` (`id_area`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_flat_flat_type1`
+    FOREIGN KEY (`id_flat_type`)
+    REFERENCES `mydb`.`flat_type` (`id_flat_type`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_flat_rieltor1`
+    FOREIGN KEY (`id_account`)
+    REFERENCES `mydb`.`realtor` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`order`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`order` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`order` (
+  `id_order` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_order_type` BIGINT(20) UNSIGNED NOT NULL,
+  `id_order_status` BIGINT(20) UNSIGNED NOT NULL,
+  `date` DATE NOT NULL,
+  `id_flat` BIGINT(20) UNSIGNED NOT NULL,
+  `id_user` BIGINT(20) UNSIGNED NOT NULL,
+  `id_realtor` BIGINT(20) UNSIGNED NULL,
+  `comment` VARCHAR(225) NULL,
+  PRIMARY KEY (`id_order`),
+  UNIQUE INDEX `id_order_unq_idx` (`id_order` ASC),
+  INDEX `order_type_has_order` (`id_order_type` ASC),
+  INDEX `order_status_has_order` (`id_order_status` ASC),
+  INDEX `order_has_flat` (`id_flat` ASC),
+  INDEX `user_has_order` (`id_user` ASC),
+  INDEX `order_has_realtor` (`id_realtor` ASC),
+  CONSTRAINT `fk_order_order_type1`
+    FOREIGN KEY (`id_order_type`)
+    REFERENCES `mydb`.`order_type` (`id_order_type`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_order_status1`
+    FOREIGN KEY (`id_order_status`)
+    REFERENCES `mydb`.`order_status` (`id_order_status`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_flat1`
+    FOREIGN KEY (`id_flat`)
+    REFERENCES `mydb`.`flat` (`id_flat`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_user1`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `mydb`.`user` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_realtor1`
+    FOREIGN KEY (`id_realtor`)
+    REFERENCES `mydb`.`realtor` (`id_account`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`image` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`image` (
+  `id_image` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `url` VARCHAR(225) NOT NULL,
+  `id_flat` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_image`),
+  INDEX `fk_image_flat1_idx` (`id_flat` ASC),
+  CONSTRAINT `fk_image_flat1`
+    FOREIGN KEY (`id_flat`)
+    REFERENCES `mydb`.`flat` (`id_flat`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`message` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`message` (
+  `id_message` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `contetnt` VARCHAR(225) NOT NULL,
+  `date` DATE NOT NULL,
+  `hash` INT NOT NULL,
+  `time` TIME NOT NULL,
+  `username_from` VARCHAR(225) NOT NULL,
+  `username_to` VARCHAR(225) NOT NULL,
+  PRIMARY KEY (`id_message`),
+  UNIQUE INDEX `id_message_UNIQUE` (`id_message` ASC),
+  INDEX `hash_idx` (`hash` ASC))
+ENGINE = InnoDB;
+
+USE `rent_ap` ;
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`status` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`status` (
+  `id_status` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_status`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`user` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`user` (
+  `id_user` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `enabled` TINYINT(1) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `surname` VARCHAR(255) NOT NULL,
+  `username` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_user`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`flat`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`flat` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`flat` (
+  `id_flat` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `amount_room` INT(11) NOT NULL,
+  `average_mark` FLOAT NOT NULL,
+  `month_price` DOUBLE NOT NULL,
+  `upload_date` DATE NOT NULL,
+  `id_status` BIGINT(20) UNSIGNED NOT NULL,
+  `id_user` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_flat`),
+  INDEX `FK6cq0inmiwxae9chiu1oe0r6kc` (`id_status` ASC),
+  INDEX `FKhrfjrr3bwlmlfu9e397jexk0u` (`id_user` ASC),
+  CONSTRAINT `FK6cq0inmiwxae9chiu1oe0r6kc`
+    FOREIGN KEY (`id_status`)
+    REFERENCES `rent_ap`.`status` (`id_status`),
+  CONSTRAINT `FKhrfjrr3bwlmlfu9e397jexk0u`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `rent_ap`.`user` (`id_user`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`area`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`area` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`area` (
+  `id_area` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_area`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`address` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`address` (
+  `id_address` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `flat_number` INT(11) NOT NULL,
+  `house_number` INT(11) NOT NULL,
+  `street` VARCHAR(255) NOT NULL,
+  `id_area` BIGINT(20) UNSIGNED NOT NULL,
+  `id_flat` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_address`),
+  INDEX `area_has_address` (`id_area` ASC),
+  INDEX `FK36xppgmry3jkgr2b2xsnq2fd5` (`id_flat` ASC),
+  CONSTRAINT `FK36xppgmry3jkgr2b2xsnq2fd5`
+    FOREIGN KEY (`id_flat`)
+    REFERENCES `rent_ap`.`flat` (`id_flat`),
+  CONSTRAINT `area_has_address`
+    FOREIGN KEY (`id_area`)
+    REFERENCES `rent_ap`.`area` (`id_area`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`authority`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`authority` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`authority` (
+  `id_authority` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `authority` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_authority`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`image`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`image` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`image` (
+  `id_image` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `url` VARCHAR(255) NOT NULL,
+  `id_flat` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_image`),
+  INDEX `FK9l1nmn98dnyl6pjml0wf52kf8` (`id_flat` ASC),
+  CONSTRAINT `FK9l1nmn98dnyl6pjml0wf52kf8`
+    FOREIGN KEY (`id_flat`)
+    REFERENCES `rent_ap`.`flat` (`id_flat`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`subway`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`subway` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`subway` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`subway_address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`subway_address` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`subway_address` (
+  `id_address` BIGINT(20) UNSIGNED NOT NULL,
+  `id_subway` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_address`, `id_subway`),
+  INDEX `fk_subway_has_address` (`id_subway` ASC),
+  CONSTRAINT `fk_address_has_subway`
+    FOREIGN KEY (`id_address`)
+    REFERENCES `rent_ap`.`address` (`id_address`),
+  CONSTRAINT `fk_subway_has_address`
+    FOREIGN KEY (`id_subway`)
+    REFERENCES `rent_ap`.`subway` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rent_ap`.`user_authority`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `rent_ap`.`user_authority` ;
+
+CREATE TABLE IF NOT EXISTS `rent_ap`.`user_authority` (
+  `id_user` BIGINT(20) UNSIGNED NOT NULL,
+  `id_authority` BIGINT(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_user`, `id_authority`),
+  INDEX `fk_authority_has_user` (`id_authority` ASC),
+  CONSTRAINT `fk_authority_has_user`
+    FOREIGN KEY (`id_authority`)
+    REFERENCES `rent_ap`.`authority` (`id_authority`),
+  CONSTRAINT `fk_user_has_authority`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `rent_ap`.`user` (`id_user`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
